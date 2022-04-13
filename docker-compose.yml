@@ -1,0 +1,44 @@
+version: "3.5"
+
+networks: 
+  app-network:
+    driver: bridge
+
+services:
+  back:
+    container_name: 'simple_ecomerce-app'
+    build: .
+    ports: 
+      - "8000:8000"
+    volumes:
+      - .:/var/www
+    networks: 
+      - app-network
+  mysql:
+    container_name: 'simple_ecomerce-mysql'
+    image: mysql
+    ports: 
+      - "3306:3306"
+    volumes:
+      - .docker/dbdata:/var/lib/mysql
+    environment: 
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    networks: 
+      - app-network
+  phpmyadmin:
+    container_name: 'simple_ecomerce-phpmyadmin'
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+  
