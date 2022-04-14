@@ -9,10 +9,27 @@ module.exports = {
         './resources/js/**/*.vue',
     ],
 
+     rules: [
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+    ],
+
     theme: {
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+            },
+
+            colors: {
+                'primary': '#FA8F02',
+                'primary-soft': '#FFCC89',
+                'secondary': '#0075AD',
+                'secondary-soft':'#02A9FA'
             },
         },
     },
