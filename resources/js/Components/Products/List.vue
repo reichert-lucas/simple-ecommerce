@@ -36,6 +36,7 @@ export default {
 .product__list {
     @include flexCenter();
     flex-wrap: wrap;
+    align-items: stretch;
     margin: 32px 0px;
 }
 
