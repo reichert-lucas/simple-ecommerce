@@ -1,16 +1,18 @@
 <script setup>
-import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import JetApplicationMark from '@/Jetstream/ApplicationMark.vue';
-import JetBanner from '@/Jetstream/Banner.vue';
-import JetDropdown from '@/Jetstream/Dropdown.vue';
-import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
-import JetNavLink from '@/Jetstream/NavLink.vue';
-import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
-import NavShoppingCart from '@/Components/NavShoppingCart.vue';
-import ProductList from '@/Components/Products/List.vue';
-import Header from '@/Components/Header/Header.vue';
+import { ref } from 'vue'
+import { Inertia } from '@inertiajs/inertia'
+import { Head, Link } from '@inertiajs/inertia-vue3'
+import JetApplicationMark from '@/Jetstream/ApplicationMark.vue'
+import JetBanner from '@/Jetstream/Banner.vue'
+import JetDropdown from '@/Jetstream/Dropdown.vue'
+import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
+import JetNavLink from '@/Jetstream/NavLink.vue'
+import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
+import NavShoppingCart from '@/Components/NavShoppingCart.vue'
+import ProductList from '@/Components/Products/List.vue'
+import Header from '@/Components/Header/Header.vue'
+import Spin from '@/Components/Icons/Spin.vue'
+
 
 const showingNavigationDropdown = ref(false);
 
@@ -104,7 +106,64 @@ defineProps({
             <Header />
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <ProductList />
+                <ProductList :products="products" v-if="!loadingProducts"/>
+
+                <div class="not__found__container w-full py-6 my-6" v-else>
+                    <Spin class="animate-spin animate-spin"/>
+                    <h4 class="text-center">Carregando seus produtos...</h4>
+                </div>
             </div>
     </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            products: [],
+            loadingProducts: false
+        }
+    },
+
+    methods: {
+        loadAllProducts() {
+            this.loadingProducts = true
+
+            fetch('https://fakestoreapi.com/products')
+                .then(res => res.json())
+                .then(json => {
+                    this.products = json
+                })
+                .finally(() => this.loadingProducts = false)
+        }
+    },
+
+    created() {
+        this.loadAllProducts()
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+@mixin flexCenter() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.not__found__container {
+    @include flexCenter();
+    flex-direction: column;
+    color: var(--primary);
+    padding: 32px;
+
+    h4 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    svg {
+        width: 120px;
+    }
+}
+</style>
