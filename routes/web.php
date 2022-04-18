@@ -22,6 +22,12 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
+Route::get('/products/category/{categoryName}', function (string $categoryName) {
+    return Inertia::render('Category', [
+        'categoryName' => $categoryName,
+    ]);
+})->name('category');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

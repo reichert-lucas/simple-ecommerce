@@ -15,9 +15,33 @@ import ApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
 
         <Search />
 
-        <CategoryButtons />
+        <CategoryButtons v-if="withCategoriesFilter"/>
+        
+        <div class="container__category__title" v-if="!withCategoriesFilter && categoryName">
+            <h2>{{categoryName}}</h2>
+        </div>
 </header>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    props: {
+        withCategoriesFilter: {
+            type: Boolean,
+            required: false,
+            default: true
+        }
+    },
+
+    computed: {
+        ...mapState('products', ['categoryName']),
+
+    }
+
+}
+</script>
 
 <style lang="scss" scoped>
     header {
@@ -37,6 +61,22 @@ import ApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
         .container__logo {
             width: 136px;
             margin-bottom: 16px;
+        }
+
+        .container__category__title {
+            margin-top: 32px;
+
+            h2 {
+                font-size: 32px;
+                font-weight: 700;
+                color: var(--primary);
+                text-transform: uppercase;
+                background: rgba(255, 255, 255, 0.692);
+                padding: 8px 32px;
+                border-radius: 6px;
+                max-width: 300px;
+                text-align: center;
+            }
         }
     }
 </style>

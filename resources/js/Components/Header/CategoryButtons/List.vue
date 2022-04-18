@@ -1,5 +1,6 @@
 <script setup>
-import Btn from './Button.vue';
+import Btn from './Button.vue'
+import { Link } from '@inertiajs/inertia-vue3'
 </script>
 
 <template>
@@ -17,9 +18,9 @@ import Btn from './Button.vue';
     </div>
 
     <div class="flex justify-center align-middle mb-8 m-full flex-wrap max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" v-if="!loadingCategories && categoryName">
-        <button type="button" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-lg px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+        <Link :href="route('category', [categoryName])" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-lg px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
             Acessar {{ categoryName }} >
-        </button>
+        </Link>
     </div>
 
 </template>

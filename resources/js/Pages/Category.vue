@@ -4,6 +4,10 @@ import Header from '@/Components/Header/Header.vue'
 import Products from '@/Components/Products/Products.vue'
 import GlobalLoader from '@/Components/GlobalLoader.vue'
 
+defineProps({
+    categoryName: String,
+});
+
 </script>
 
 <template>
@@ -12,7 +16,7 @@ import GlobalLoader from '@/Components/GlobalLoader.vue'
 
         <NavBar />
 
-        <Header />
+        <Header :withCategoriesFilter="false" :categoryName="categoryName" />
 
         <Products :loadingProducts="loadingProducts" />
     </div>
@@ -23,14 +27,14 @@ import { mapActions } from 'vuex'
 
 export default {
     methods: {
-        ...mapActions('products', ['loadProducts']),
+        ...mapActions('products', ['loadProductsByCategory']),
         ...mapActions('loader', ['setLoading']),
 
-        callLoadProducts() {
+        callLoadProductsByCategory() {
             this.loadingProducts = true
             this.setLoading(true)
 
-            this.loadProducts()
+            this.loadProductsByCategory(this.categoryName)
                 .finally(() => {
                     this.loadingProducts = false
                     this.setLoading(false)
@@ -45,7 +49,7 @@ export default {
     },
 
     created() {
-        this.callLoadProducts()
+        this.callLoadProductsByCategory()
     }
 }
 </script>
