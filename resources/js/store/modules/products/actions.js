@@ -11,6 +11,11 @@ const loadProducts = async ({ commit }) => {
                 .catch(() => console.log('erro ao buscar produtos'))    
 }
 
+const searchProduct = async ({ commit }, filters) => { 
+    commit('SEARCH_PRODUCT', filters)
+}
+
 export {
     loadProducts,
+    searchProduct
 }

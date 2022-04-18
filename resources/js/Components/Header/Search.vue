@@ -5,7 +5,7 @@
       @keyup="search"
       @click="listOpened = true"
       type="text"
-      placeholder="Digite aqui o nome do produto..."
+      placeholder="Digite o nome ou descrição do produto..."
     />
 
     <a
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+ 
 export default {
   data() {
     return {
@@ -41,8 +43,13 @@ export default {
   },
 
   methods: {
+    ...mapActions('products', ['searchProduct']),
+
     search() {
         this.loading = true
+
+        this.searchProduct({ query: this.query })
+            .finally(() => this.loading = false)
     }
   },
 
