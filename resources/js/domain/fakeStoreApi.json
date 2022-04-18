@@ -2,5 +2,9 @@
     "products": {
         "url": "products",
         "method": "get"
+    },
+    "categories": {
+        "url": "products/categories",
+        "method": "get"
     }
 }
