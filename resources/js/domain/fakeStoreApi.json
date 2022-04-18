@@ -1,0 +1,6 @@
+{
+    "products": {
+        "url": "products",
+        "method": "get"
+    }
+}

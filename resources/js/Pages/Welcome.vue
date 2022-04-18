@@ -24,25 +24,28 @@ import ProductList from '@/Components/Products/List.vue'
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 export default {
     data() {
         return {
-            products: [],
             loadingProducts: false
         }
     },
 
     methods: {
+        ...mapActions('products', ['loadProducts']),
+
         loadAllProducts() {
             this.loadingProducts = true
 
-            fetch('https://fakestoreapi.com/products')
-                .then(res => res.json())
-                .then(json => {
-                    this.products = json
-                })
+            this.loadProducts()
                 .finally(() => this.loadingProducts = false)
         }
+    },
+
+    computed: {
+        ...mapState('products', ['products']),
     },
 
     created() {
