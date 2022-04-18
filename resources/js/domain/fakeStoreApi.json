@@ -6,5 +6,9 @@
     "categories": {
         "url": "products/categories",
         "method": "get"
+    },
+    "productsByCategory": {
+        "url": "products/category/",
+        "method": "get"
     }
 }

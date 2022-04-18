@@ -3,6 +3,10 @@ const LOAD_PRODUCTS = (state, products) => {
     state.productsWithoutFilters = products
 }
 
+const SET_CATEGORY = (state, categoryName) => {
+    state.categoryName = categoryName
+}
+
 const SEARCH_PRODUCT = (state, filters) => {
     if (!filters['query']) {
         state.products = state.productsWithoutFilters
@@ -25,5 +29,6 @@ const REMOVE_FILTERS = (state) => {
 export {
     LOAD_PRODUCTS,
     SEARCH_PRODUCT,
-    REMOVE_FILTERS
+    REMOVE_FILTERS,
+    SET_CATEGORY
 }

@@ -11,11 +11,24 @@ const loadProducts = async ({ commit }) => {
                 .catch(() => console.log('erro ao buscar produtos'))    
 }
 
+const loadProductsByCategory = async ({ commit }, categoryName) => { 
+    let url = `${routes.productsByCategory.url}${categoryName}`
+
+    commit('SET_CATEGORY', categoryName)
+
+    return api.get(url)
+                .then(res => {
+                    commit('LOAD_PRODUCTS', res.data)
+                })
+                .catch(() => console.log('erro ao buscar produtos por categoria'))    
+}
+
 const searchProduct = async ({ commit }, filters) => { 
     commit('SEARCH_PRODUCT', filters)
 }
 
 export {
     loadProducts,
-    searchProduct
+    searchProduct,
+    loadProductsByCategory
 }

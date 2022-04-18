@@ -4,12 +4,24 @@ import Btn from './Button.vue';
 
 <template>
     <div class="flex justify-center align-middle p-2 mt-8 mb-8 m-full flex-wrap max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" v-if="!loadingCategories">
-        <btn v-for="(category, index) in categories" :key="index" @click.prevent="selectCategory(index)" :title="category" />
+        <btn v-for="(category, index) in categories" 
+                :key="index" 
+                :title="category" 
+                @click="callLoadProductsByCategory(category)" 
+                :class="{ active: categoryName == category }"
+        />
     </div>
 
     <div class="flex justify-center align-middle p-2 mt-8 mb-8 m-full flex-wrap max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white" v-else>
         Carregando categorias...
     </div>
+
+    <div class="flex justify-center align-middle mb-8 m-full flex-wrap max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" v-if="!loadingCategories && categoryName">
+        <button type="button" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-lg px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+            Acessar {{ categoryName }} >
+        </button>
+    </div>
+
 </template>
 
 <script>
@@ -24,12 +36,21 @@ export default {
 
     methods: {
         ...mapActions('categories', ['loadCategories']),
+        ...mapActions('products', ['loadProductsByCategory']),
+        ...mapActions('loader', ['setLoading']),
 
         loadAllCategories() {
             this.loadingCategories = true
 
             this.loadCategories()
                 .finally(() => this.loadingCategories = false)
+        },
+
+        callLoadProductsByCategory(category) {
+            this.setLoading(true)
+
+            this.loadProductsByCategory(category)
+                .finally(() => this.setLoading(false))
         },
 
         selectCategory(categoryId) {
@@ -39,6 +60,8 @@ export default {
 
     computed: {
         ...mapState('categories', ['categories']),
+        ...mapState('products', ['categoryName']),
+
     },
 
     created() {
