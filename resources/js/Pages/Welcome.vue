@@ -3,11 +3,14 @@ import NavBar from '@/Components/NavBar/NavBar.vue'
 import Header from '@/Components/Header/Header.vue'
 import Spin from '@/Components/Icons/Spin.vue'
 import ProductList from '@/Components/Products/List.vue'
+import GlobalLoader from '@/Components/GlobalLoader.vue'
 
 </script>
 
 <template>
     <div class="min-h-screen bg-gray-100">
+        <global-loader />
+
         <NavBar />
 
         <Header />
@@ -35,12 +38,17 @@ export default {
 
     methods: {
         ...mapActions('products', ['loadProducts']),
+        ...mapActions('loader', ['setLoading']),
 
         loadAllProducts() {
             this.loadingProducts = true
+            this.setLoading(true)
 
             this.loadProducts()
-                .finally(() => this.loadingProducts = false)
+                .finally(() => {
+                    this.loadingProducts = false
+                    this.setLoading(false)
+                })
         }
     },
 
