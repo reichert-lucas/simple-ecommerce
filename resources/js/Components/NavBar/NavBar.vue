@@ -37,6 +37,10 @@ const showingNavigationDropdown = ref(false);
                             <JetNavLink :href="route('welcome')" :active="route().current('welcome')">
                                 Produtos
                             </JetNavLink>
+
+                            <JetNavLink :href="route('store.login')" :active="route().current('store.login')">
+                                <span>Fake API login</span>
+                            </JetNavLink>
                         </div>
                     </div>
                 </div>
@@ -81,21 +85,10 @@ const showingNavigationDropdown = ref(false);
             <JetResponsiveNavLink :href="route('welcome')" :active="route().current('welcome')">
                 Produtos
             </JetResponsiveNavLink>
-            
-            <div>
-                <nav-btn @click.prevent="openCloseCategoriesMenu">
-                    Categorias
-                </nav-btn>
-                <div class="p-2" v-if="isOpenedCategoriesMenu">
-                    <JetResponsiveNavLink>
-                        Categoria 1
-                    </JetResponsiveNavLink>
-    
-                    <JetResponsiveNavLink>
-                        Categoria 2
-                    </JetResponsiveNavLink>
-                </div>
-            </div>
+
+            <JetResponsiveNavLink :href="route('store.login')" :active="route().current('store.login')">
+                <span>Fake API login</span>
+            </JetResponsiveNavLink>
         </div>
     </nav>
 </template>

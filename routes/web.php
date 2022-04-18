@@ -34,6 +34,10 @@ Route::get('/products/{productId}', function (string $productId) {
     ]);
 })->name('product');
 
+Route::get('/store/login', function () {
+    return Inertia::render('StoreLogin');
+})->name('store.login');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
