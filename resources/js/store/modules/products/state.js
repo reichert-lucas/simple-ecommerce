@@ -1,5 +1,6 @@
 export default {
     products: [],
     productsWithoutFilters: [],
-    categoryName: null
+    categoryName: null,
+    product: {},
 }

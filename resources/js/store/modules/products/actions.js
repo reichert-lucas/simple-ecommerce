@@ -27,8 +27,20 @@ const searchProduct = async ({ commit }, filters) => {
     commit('SEARCH_PRODUCT', filters)
 }
 
+const loadProduct = async ({ commit }, productId) => { 
+    let url = `${routes.product.url}${productId}`
+
+    return api.get(url)
+                .then(res => {
+                    commit('LOAD_PRODUCT', res.data)
+                })
+                .catch(() => console.log('erro ao buscar produto'))    
+}
+
+
 export {
     loadProducts,
     searchProduct,
-    loadProductsByCategory
+    loadProductsByCategory,
+    loadProduct
 }

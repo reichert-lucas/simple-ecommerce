@@ -1,11 +1,15 @@
 <script setup>
 import Product from '@/Components/Products/Product.vue'
 import TraficBarrier from '@/Components/Icons/TraficBarrier.vue'
+import { Link } from '@inertiajs/inertia-vue3'
+
 </script>
 
 <template>
     <div class="product__list" v-if="products.length">
-        <Product v-for="product in products" :product="product" :key="product.id"/>
+        <Link :href="route('product', [product.id])" v-for="product in products" :key="product.id">
+            <Product :product="product" />
+        </Link>
     </div>
 
     <div class="not__found__container w-full py-6 my-6" v-else>

@@ -10,5 +10,9 @@
     "productsByCategory": {
         "url": "products/category/",
         "method": "get"
+    },
+    "product": {
+        "url": "products/",
+        "method": "get"
     }
 }

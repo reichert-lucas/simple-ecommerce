@@ -6,6 +6,7 @@ import ApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
 
 <template>
 <header>
+    
         <div class="container__logo">
             <ApplicationLogo />
         </div>
@@ -13,12 +14,18 @@ import ApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
         <h1 class="text-4xl font-bold mt-0 mb-6 text-primary">Simple Store</h1>
         <p class="text-2xl font-bold mb-8">A melhor plataforma para comprar online</p>
 
-        <Search />
+        <Search v-if="withSearchInput" />
 
         <CategoryButtons v-if="withCategoriesFilter"/>
         
-        <div class="container__category__title" v-if="!withCategoriesFilter && categoryName">
-            <h2>{{categoryName}}</h2>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="container__category__title" v-if="title">
+                <h2>{{ title }}</h2>
+            </div>
+
+            <div class="container__category__title" v-else-if="!withCategoriesFilter && categoryName">
+                <h2>{{ categoryName }}</h2>
+            </div>
         </div>
 </header>
 </template>
@@ -32,6 +39,16 @@ export default {
             type: Boolean,
             required: false,
             default: true
+        },
+        withSearchInput: {
+            type: Boolean,
+            required: false,
+            default: true
+        },
+        title: {
+            type: String,
+            required: false,
+            default: false
         }
     },
 
@@ -67,15 +84,19 @@ export default {
             margin-top: 32px;
 
             h2 {
-                font-size: 32px;
+                font-size: 22px;
                 font-weight: 700;
                 color: var(--primary);
                 text-transform: uppercase;
                 background: rgba(255, 255, 255, 0.692);
                 padding: 8px 32px;
                 border-radius: 6px;
-                max-width: 300px;
+                max-width: 400px;
                 text-align: center;
+
+                @media (max-width: 400px) {
+                    width: 80%;
+                }
             }
         }
     }

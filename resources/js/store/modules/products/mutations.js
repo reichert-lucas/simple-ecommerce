@@ -3,6 +3,10 @@ const LOAD_PRODUCTS = (state, products) => {
     state.productsWithoutFilters = products
 }
 
+const LOAD_PRODUCT = (state, product) => {
+    state.product = product
+}
+
 const SET_CATEGORY = (state, categoryName) => {
     state.categoryName = categoryName
 }
@@ -30,5 +34,6 @@ export {
     LOAD_PRODUCTS,
     SEARCH_PRODUCT,
     REMOVE_FILTERS,
-    SET_CATEGORY
+    SET_CATEGORY,
+    LOAD_PRODUCT
 }
