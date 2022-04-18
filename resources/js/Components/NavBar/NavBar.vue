@@ -12,6 +12,7 @@ import NavShoppingCart from '@/Components/NavShoppingCart.vue'
 import ProductList from '@/Components/Products/List.vue'
 import Header from '@/Components/Header/Header.vue'
 import Spin from '@/Components/Icons/Spin.vue'
+import NavBtn from './NavBtn.vue'
 
 const showingNavigationDropdown = ref(false);
 
@@ -30,16 +31,13 @@ const showingNavigationDropdown = ref(false);
                         </Link>
                     </div>
 
-                    <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <JetNavLink :href="route('welcome')" :active="route().current('welcome')">
-                            Categorias
-                        </JetNavLink>
-                    </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <JetNavLink :href="route('welcome')" :active="route().current('welcome')">
-                            Produtos
-                        </JetNavLink>
+                    <div class="nav__desk__menu">
+                        <!-- Navigation Links -->
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <JetNavLink :href="route('welcome')" :active="route().current('welcome')">
+                                Produtos
+                            </JetNavLink>
+                        </div>
                     </div>
                 </div>
 
@@ -80,20 +78,55 @@ const showingNavigationDropdown = ref(false);
 
         <!-- Responsive Navigation Menu -->
         <div :class="{'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown}" class="sm:hidden">
-            <div class="pt-2 pb-3 space-y-1">
-                <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                    Dashboard
-                </JetResponsiveNavLink>
-            </div>
-
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="mt-3 space-y-1">
-                    <JetResponsiveNavLink :href="route('welcome')">
-                        teste de item
+            <JetResponsiveNavLink :href="route('welcome')" :active="route().current('welcome')">
+                Produtos
+            </JetResponsiveNavLink>
+            
+            <div>
+                <nav-btn @click.prevent="openCloseCategoriesMenu">
+                    Categorias
+                </nav-btn>
+                <div class="p-2" v-if="isOpenedCategoriesMenu">
+                    <JetResponsiveNavLink>
+                        Categoria 1
+                    </JetResponsiveNavLink>
+    
+                    <JetResponsiveNavLink>
+                        Categoria 2
                     </JetResponsiveNavLink>
                 </div>
             </div>
         </div>
     </nav>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            isOpenedCategoriesMenu: false
+        }
+    },
+
+    methods: {
+        openCloseCategoriesMenu() {
+            this.isOpenedCategoriesMenu = !this.isOpenedCategoriesMenu
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.nav__desk__menu {
+    display: flex;
+    justify-content: center;
+    max-width: 500px;
+    overflow-x: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+</style>

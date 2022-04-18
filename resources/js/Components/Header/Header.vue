@@ -1,5 +1,6 @@
 <script setup>
 import Search from '@/Components/Header/Search.vue';
+import CategoryButtons from '@/Components/Header/CategoryButtons/List.vue';
 import ApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
 </script>
 
@@ -13,6 +14,8 @@ import ApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
         <p class="text-2xl font-bold mb-8">A melhor plataforma para comprar online</p>
 
         <Search />
+
+        <CategoryButtons />
 </header>
 </template>
 
@@ -20,7 +23,7 @@ import ApplicationLogo from '@/Jetstream/ApplicationLogo.vue';
     header {
         background-position: 50%;
         background: #0075AD;
-        height: 420px;
+        min-height: 420px;
         padding: 64px 32px;
         display: flex;
         justify-content: center;
